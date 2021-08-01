@@ -1,11 +1,26 @@
 {
   "extends": [
+    "airbnb-typescript",
     "next",
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
   "rules": {
-    "prefer-const": "error"
+    "prefer-const": "error",
+    "react/jsx-props-no-spreading": 0,
+    "no-console": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "document": true,
+    "window": true
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
   }
 }
