@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+
 import Container from 'components/Container/Container'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,7 +13,7 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <StyledHeader className="header">
+      <StyledHeader className="header" data-testid="header-component">
         <div className="header__logo">
           <Link href="/" passHref>
             <Image src={Logo} alt="logo" />
