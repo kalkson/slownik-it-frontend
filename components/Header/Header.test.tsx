@@ -8,7 +8,7 @@ import Header from './Header'
 
 jest.mock('next/image', () => () => <></>)
 
-describe('Header component tests', () => {
+describe('Header component testss', () => {
   afterEach(() => {
     cleanup()
   })
