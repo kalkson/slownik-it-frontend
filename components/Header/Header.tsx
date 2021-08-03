@@ -29,7 +29,7 @@ const Header: React.FC = () => {
             >
               <Image
                 className="header__modeIcon"
-                src={(isDarkMode && sunIcon) || moonIcon}
+                src={isDarkMode ? sunIcon : moonIcon}
                 width={25}
                 height={25}
                 alt=""
