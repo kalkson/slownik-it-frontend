@@ -1,4 +1,4 @@
-import Navbar from 'components/Navbar/Navbar'
+import Navbar from 'components/Header/Header'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from 'theme/GlobalStyles'
