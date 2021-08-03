@@ -26,4 +26,4 @@ jobs:
       run: |
         npm install
         npm run build
-        pm2 restart glossary
+        pm2 start
