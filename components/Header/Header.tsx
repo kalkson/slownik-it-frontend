@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-import Container from 'components/Container/Container'
-import Link from 'next/link'
-import Image from 'next/image'
-import moonIcon from 'public/assets/svg/moon-icon.svg'
-import sunIcon from 'public/assets/svg/sun-icon.svg'
-import Logo from 'public/assets/svg/big-logo.svg'
-import StyledHeader from './Header.styled'
+import Container from 'components/Container/Container';
+import Link from 'next/link';
+import Image from 'next/image';
+import moonIcon from 'public/assets/svg/moon-icon.svg';
+import sunIcon from 'public/assets/svg/sun-icon.svg';
+import Logo from 'public/assets/svg/big-logo.svg';
+import SearchBox from 'components/SearchBox/SearchBox';
+import StyledHeader from './Header.styled';
 
 const Header: React.FC = () => {
-  const [isDarkMode, setDarkMode] = useState(false)
+  const [isDarkMode, setDarkMode] = useState(false);
 
   return (
     <Container>
@@ -43,9 +44,10 @@ const Header: React.FC = () => {
             </span>
           </nav>
         </div>
+        <SearchBox />
       </StyledHeader>
     </Container>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
