@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import Container from 'components/Container/Container';
 import Link from 'next/link';
@@ -7,15 +8,24 @@ import moonIcon from 'public/assets/svg/moon-icon.svg';
 import sunIcon from 'public/assets/svg/sun-icon.svg';
 import Logo from 'public/assets/svg/big-logo.svg';
 import SearchBox from 'components/SearchBox/SearchBox';
+import useTransformed from 'hooks/useTransformed';
 import StyledHeader from './Header.styled';
+
+const StyledContainer = styled(Container)`
+  background-color: #fff;
+`;
 
 const Header: React.FC = () => {
   const [isDarkMode, setDarkMode] = useState(false);
+  const [isTransformed] = useTransformed();
 
   return (
-    <Container>
-      <StyledHeader className="header" data-testid="header-component">
-        <div className="header__logo">
+    <StyledContainer>
+      <StyledHeader
+        className={`header${isTransformed ? ' transformed' : ''}`}
+        data-testid="header-component"
+      >
+        <div className={`header__logo${isTransformed ? ' transformed' : ''}`}>
           <Link href="/" passHref>
             <Image src={Logo} alt="logo" />
           </Link>
@@ -46,7 +56,7 @@ const Header: React.FC = () => {
         </div>
         <SearchBox />
       </StyledHeader>
-    </Container>
+    </StyledContainer>
   );
 };
 

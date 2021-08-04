@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ theme: unknown }>`
     *,
     *:before,
     *:after {
@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;
         padding: 0;
-        background-color: white;
+        background-color: ${({ theme }) => theme.colors.background};
     }
 
     html {
@@ -47,6 +47,6 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
     }
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;

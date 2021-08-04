@@ -1,4 +1,6 @@
-const theme = {
+import { DefaultTheme } from 'styled-components';
+
+const theme: DefaultTheme = {
   breakpoints: {
     desktop: '1366px',
     laptop: '1024px',
@@ -18,6 +20,10 @@ const theme = {
     mobile: `(min-width: 375px)`,
     mobileS: `(min-width: 315px)`,
   },
-}
 
-export default theme
+  colors: {
+    background: '#F8F4F4',
+  },
+};
+
+export default theme;

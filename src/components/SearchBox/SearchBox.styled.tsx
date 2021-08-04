@@ -8,6 +8,12 @@ const StyledSearchBox = styled.div`
   max-width: 600px;
   width: 100%;
 
+  transition: max-width 200ms ease-in-out;
+
+  &.transformed {
+    max-width: 400px;
+  }
+
   .search {
     &__input {
       width: 100%;
@@ -19,6 +25,12 @@ const StyledSearchBox = styled.div`
       padding-left: 30px;
       font-size: 2rem;
       border-radius: 32px;
+
+      transition: height 200ms ease-in-out;
+
+      &.transformed {
+        height: 52px;
+      }
 
       &:focus {
         outline: none;
