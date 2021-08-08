@@ -1,6 +1,6 @@
 import Snackbar, { NotificationType } from 'components/Snackbar/Snackbar';
-import { randomUUID } from 'node:crypto';
-import { createContext, FC, useState } from 'react';
+import uniqid from 'uniqid';
+import { createContext, FC, useState, useEffect } from 'react';
 
 type ContextData = {
   updateNotifications: (notificationToAdd: NotificationType) => void;
@@ -9,8 +9,24 @@ type ContextData = {
 
 export const SnackbarContext = createContext<ContextData | null>(null);
 
+const AUTO_DISMISS = 6000;
+
 const SnackbarContextProvider: FC = ({ children }) => {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
+
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (notifications.length > 0) {
+      setTimeout(
+        () =>
+          // eslint-disable-next-line @typescript-eslint/no-shadow
+          setNotifications((notifications) =>
+            notifications.slice(0, notifications.length - 1)
+          ),
+        AUTO_DISMISS
+      );
+    }
+  }, [notifications]);
 
   const removeNotification = (id: string): void => {
     const newNotifications = notifications.filter(
@@ -20,10 +36,13 @@ const SnackbarContextProvider: FC = ({ children }) => {
   };
 
   const updateNotifications = (notificationToAdd: NotificationType): void => {
-    const id = randomUUID();
+    const id = uniqid();
 
-    setNotifications([...notifications, { ...notificationToAdd, id }]);
-    setTimeout(() => removeNotification(id), 4000);
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    setNotifications((notifications) => [
+      { ...notificationToAdd, id },
+      ...notifications,
+    ]);
   };
 
   const value = {

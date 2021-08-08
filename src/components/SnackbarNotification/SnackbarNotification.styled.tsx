@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
 const StyledSnackbarNotificaton = styled.div<{ type: string }>`
-  width: 120px;
-  height: 40px;
+  width: 170px;
   border-radius: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  display: flex;
+  align-items: center;
+  padding: 15px 15px;
+  color: #fff;
+  margin-top: 6px;
+  font-size: 1.6rem;
 
   ${({ type }): string | null => {
     switch (type) {

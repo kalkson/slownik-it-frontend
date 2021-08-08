@@ -1,5 +1,6 @@
 import Button from 'components/Button/Button';
 import Input from 'components/Input/Input';
+import { useHandle } from 'hooks/useNotification';
 import { useRouter } from 'next/dist/client/router';
 import React, { FC, FormEvent, useState } from 'react';
 import StyledLoginForm from './LoginForm.styled';
@@ -9,6 +10,7 @@ const { API_URL } = process.env;
 const LoginForm: FC = () => {
   const [credentials, setCredentials] = useState({});
   const router = useRouter();
+  const { handleSuccess, handleError } = useHandle();
 
   const handleChange = (e: {
     target: HTMLInputElement | HTMLTextAreaElement;
@@ -37,11 +39,15 @@ const LoginForm: FC = () => {
       .then((data) => data)
       .catch((err) => {
         console.log(err);
+        handleError('Błąd!');
       });
 
     if (fetchedData?.token) {
       window.localStorage.setItem('token', fetchedData.token);
+      handleSuccess('Zalogowano');
       router.push('/admin/dashboard');
+    } else {
+      handleError(fetchedData.message);
     }
   };
 
