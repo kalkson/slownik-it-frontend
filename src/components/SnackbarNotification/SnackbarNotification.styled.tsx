@@ -10,6 +10,28 @@ const StyledSnackbarNotificaton = styled.div<{ type: string }>`
   color: #fff;
   margin-top: 6px;
   font-size: 1.6rem;
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 3px;
+    width: 100%;
+    background-color: black;
+    animation: snackbar-bar 4.3s linear forwards;
+    transform-origin: right;
+  }
+
+  @keyframes snackbar-bar {
+    0% {
+      transform: scaleX(1);
+    }
+    100% {
+      transform: scaleX(0);
+    }
+  }
 
   ${({ type }): string | null => {
     switch (type) {

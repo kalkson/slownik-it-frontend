@@ -9,7 +9,7 @@ type ContextData = {
 
 export const SnackbarContext = createContext<ContextData | null>(null);
 
-const AUTO_DISMISS = 6000;
+const AUTO_DISMISS = 4000;
 
 const SnackbarContextProvider: FC = ({ children }) => {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
