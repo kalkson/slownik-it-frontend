@@ -23,6 +23,7 @@ const theme: DefaultTheme = {
 
   colors: {
     background: '#F8F4F4',
+    secondary: '#d56060',
   },
 };
 
