@@ -46,7 +46,10 @@ interface Props {
   labelHidden?: boolean;
   placeholder?: string | null;
   id: string;
-  onChange?: () => void | null;
+  name?: string;
+  onChange?: (e: {
+    target: HTMLInputElement | HTMLTextAreaElement;
+  }) => void | null;
 }
 
 const Input: FC<Props> = ({
@@ -56,6 +59,7 @@ const Input: FC<Props> = ({
   placeholder,
   id,
   onChange,
+  name,
   ...props
 }) => (
   <StyledInput {...props} className="element">
@@ -67,9 +71,15 @@ const Input: FC<Props> = ({
           className="element__input"
           id={id}
           onChange={onChange}
+          name={name}
         />
       ) : (
-        <textarea className="element__label" id={id} onChange={onChange} />
+        <textarea
+          className="element__label"
+          id={id}
+          onChange={onChange}
+          name={name}
+        />
       )}
     </label>
   </StyledInput>
