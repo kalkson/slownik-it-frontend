@@ -47,10 +47,10 @@ const Header: React.FC = () => {
               />
             </button>
             <span role="listitem" className="header__nav-item">
-              <Link href="/add">o słowniku</Link>
+              <Link href="/about">o słowniku</Link>
             </span>
             <span role="listitem" className="header__nav-item">
-              <Link href="/about">dodaj termin</Link>
+              <Link href="/add">dodaj termin</Link>
             </span>
           </nav>
         </div>

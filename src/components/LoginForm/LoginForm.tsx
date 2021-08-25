@@ -1,4 +1,5 @@
 import Button from 'components/Button/Button';
+import Container from 'components/Container/Container';
 import Input from 'components/Input/Input';
 import { useHandle } from 'hooks/useNotification';
 import { useRouter } from 'next/dist/client/router';
@@ -52,23 +53,25 @@ const LoginForm: FC = () => {
   };
 
   return (
-    <StyledLoginForm className="login" onSubmit={(e) => handleSubmit(e)}>
-      <Input
-        type="email"
-        id="email"
-        label="e-mail"
-        name="email"
-        onChange={(e) => handleChange(e)}
-      />
-      <Input
-        type="password"
-        id="password"
-        label="hasło"
-        name="password"
-        onChange={(e) => handleChange(e)}
-      />
-      <Button type="submit">zaloguj</Button>
-    </StyledLoginForm>
+    <Container>
+      <StyledLoginForm className="login" onSubmit={(e) => handleSubmit(e)}>
+        <Input
+          type="email"
+          id="email"
+          label="e-mail"
+          name="email"
+          onChange={(e) => handleChange(e)}
+        />
+        <Input
+          type="password"
+          id="password"
+          label="hasło"
+          name="password"
+          onChange={(e) => handleChange(e)}
+        />
+        <Button type="submit">zaloguj</Button>
+      </StyledLoginForm>
+    </Container>
   );
 };
 
