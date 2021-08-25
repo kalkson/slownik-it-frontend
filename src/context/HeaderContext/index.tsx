@@ -14,7 +14,7 @@ export type SettingsContextData = ReturnType<typeof useProviderSettings>;
 export const HeaderContext = createContext<SettingsContextData | null>(null);
 
 const HeaderContextProvider: FC = ({ children }) => {
-  const [isTransformed, setTransformed] = useState(false);
+  const [isTransformed, setTransformed] = useState(true);
 
   const value = {
     isTransformed,

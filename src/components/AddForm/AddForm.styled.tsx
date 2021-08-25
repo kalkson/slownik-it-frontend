@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyledAddForm = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 120px auto 0;
+  margin: 80px auto 80px;
   width: fit-content;
 
   & > *:not(:last-child) {

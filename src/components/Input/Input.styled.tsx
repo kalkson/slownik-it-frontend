@@ -16,10 +16,14 @@ const StyledInput = styled.div`
 
     &__input {
       height: 46px;
+      padding: 5px 10px;
     }
 
     &__textarea {
       height: 150px;
+      padding: 5px 10px;
+      padding-top: 15px;
+      resize: none;
     }
 
     &__input,
@@ -28,7 +32,6 @@ const StyledInput = styled.div`
       border-radius: 10px;
       border: none;
       outline: none;
-      padding: 5px 20px;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
       &:focus {
