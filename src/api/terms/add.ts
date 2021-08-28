@@ -29,18 +29,25 @@ const addTerm = async (termToAdd: Term): Promise<HandledResponse> => {
       message: 'Dodano do weryfikacji',
     };
 
+  const dummyResponse: HandledResponse = { success: false, message: '' };
   switch (responseFromServer.status) {
     case 409:
-      return {
-        success: false,
-        message: 'Podany termin już istnieje',
-      };
+      dummyResponse.message = 'Podany termin już istnieje';
+      break;
     default:
-      return {
-        success: false,
-        message: 'Coś poszło nie tak',
-      };
+      dummyResponse.message = 'Coś poszło nie tak';
+      break;
   }
+
+  return dummyResponse;
+
+  // if (fetchedData?.token) {
+  //   window.localStorage.setItem('token', fetchedData.token);
+  //   handleSuccess('Zalogowano');
+  //   router.push('/admin/dashboard');
+  // } else {
+  //   handleError(fetchedData.message);
+  // }
 };
 
 export default addTerm;

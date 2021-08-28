@@ -62,7 +62,10 @@ const AddForm: FC = () => {
       setFormData({});
       if (form$.current) form$.current.reset();
       if (captcha$.current) captcha$.current.reset();
-    } else handleError(result.message);
+      return;
+    }
+
+    handleError(result.message);
   };
 
   return (
@@ -93,6 +96,7 @@ const AddForm: FC = () => {
       <ReCAPTCHA
         ref={captcha$}
         sitekey="6LcNRSscAAAAAKNp-3ZX8nVps8Eb_-xNL3xf2Tsd"
+        hl="pl"
       />
       <Button type="submit">Prześlij</Button>
     </StyledAddForm>

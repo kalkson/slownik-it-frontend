@@ -1,3 +1,4 @@
+import login from 'api/auth/login';
 import Button from 'components/Button/Button';
 import Container from 'components/Container/Container';
 import Input from 'components/Input/Input';
@@ -5,8 +6,6 @@ import { useHandle } from 'hooks/useNotification';
 import { useRouter } from 'next/dist/client/router';
 import React, { FC, FormEvent, useState } from 'react';
 import StyledLoginForm from './LoginForm.styled';
-
-const { API_URL } = process.env;
 
 const LoginForm: FC = () => {
   const [credentials, setCredentials] = useState({});
@@ -24,32 +23,15 @@ const LoginForm: FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const result = await login(credentials);
 
-    const fetchedData = await fetch(`${API_URL}login_auth`, {
-      method: 'post',
-      body: JSON.stringify(credentials),
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => data)
-      .catch((err) => {
-        console.log(err);
-        handleError('Błąd!');
-      });
-
-    if (fetchedData?.token) {
-      window.localStorage.setItem('token', fetchedData.token);
+    if (result.success) {
       handleSuccess('Zalogowano');
       router.push('/admin/dashboard');
-    } else {
-      handleError(fetchedData.message);
+      return;
     }
+
+    handleError(result.message);
   };
 
   return (
