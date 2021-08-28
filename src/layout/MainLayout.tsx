@@ -7,6 +7,7 @@ import GlobalStyle from 'theme/GlobalStyles';
 import theme from 'theme/theme';
 import Head from 'next/head';
 import 'animate.css';
+import LoadingContextProvider from 'context/LoadingContext';
 
 const MainLayout: React.FC = ({ children }) => (
   <>
@@ -17,13 +18,15 @@ const MainLayout: React.FC = ({ children }) => (
       />
     </Head>
     <ThemeProvider theme={theme}>
-      <SnackbarContextProvider>
-        <HeaderContextProvider>
-          <GlobalStyle />
-          <Navbar />
-          {children}
-        </HeaderContextProvider>
-      </SnackbarContextProvider>
+      <LoadingContextProvider>
+        <SnackbarContextProvider>
+          <HeaderContextProvider>
+            <GlobalStyle />
+            <Navbar />
+            {children}
+          </HeaderContextProvider>
+        </SnackbarContextProvider>
+      </LoadingContextProvider>
     </ThemeProvider>
   </>
 );

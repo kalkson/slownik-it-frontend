@@ -1,4 +1,4 @@
-import Snackbar, { NotificationType } from 'components/Snackbar/Snackbar';
+import LoaderPopup from 'components/Loader/LoaderPopup';
 import {
   createContext,
   FC,
@@ -24,7 +24,9 @@ const LoadingContextProvider: FC = ({ children }) => {
   };
 
   return (
-    <LoadingContext.Provider value={value}>{children}</LoadingContext.Provider>
+    <LoadingContext.Provider value={value}>
+      <LoaderPopup isVisible={isLoading} />
+    </LoadingContext.Provider>
   );
 };
 

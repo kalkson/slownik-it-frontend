@@ -47,6 +47,23 @@ const GlobalStyle = createGlobalStyle<{ theme: unknown }>`
         margin: 0;
         padding: 0;
     }
+
+    /* react-transition-group */
+
+    .loader-enter {
+        transform: translateX(120%);
+    }
+    .loader-enter-active {
+        transition: transform 600ms;
+        transform: translateX(0);
+    }
+    .loader-exit {
+        transform: translateX(0);
+    }
+    .loader-exit-active {
+        transition: opacity 200ms;
+        transform: translateX(120%);
+    }
 `;
 
 export default GlobalStyle;
