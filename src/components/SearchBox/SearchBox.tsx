@@ -8,7 +8,6 @@ const SearchBox: React.FC = () => {
   const [isTransformed, setTransformed] = useTransformed();
 
   const handleChange = (e: { target: HTMLInputElement }) => {
-    console.log(e.target.value);
     if (!isTransformed) setTransformed(true);
     if (isTransformed && e.target.value === '') setTransformed(false);
   };

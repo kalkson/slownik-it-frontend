@@ -1,6 +1,6 @@
 import Button from 'components/Button/Button';
 import Input from 'components/Input/Input';
-import { FC, FormEvent, useState, useRef, useEffect } from 'react';
+import { FC, FormEvent, useState, useRef } from 'react';
 import { addTerm } from 'api/terms';
 import { useHandle } from 'hooks/useNotification';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -22,10 +22,6 @@ const AddForm: FC = () => {
   const termInput$ = useRef<HTMLInputElement>(null);
   const captcha$ = useRef<ReCAPTCHA>(null);
 
-  useEffect(() => {
-    console.log(termInput$);
-  });
-
   const handleChange = (e: {
     target: HTMLInputElement | HTMLTextAreaElement;
   }): void => {
@@ -42,7 +38,6 @@ const AddForm: FC = () => {
     let invalidForm = false;
 
     if (!formData.term) {
-      console.log(termInput$);
       invalidForm = true;
       bounce(termInput$);
     }

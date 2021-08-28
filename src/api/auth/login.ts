@@ -1,5 +1,4 @@
 import HandledResponse from 'api/terms/types';
-// import { Credentials } from 'components/LoginForm/LoginForm';
 
 const BASE_URL = process.env.API_URL;
 
@@ -13,8 +12,6 @@ type Fetched = {
 };
 
 const login = async (credentials: Credentials): Promise<HandledResponse> => {
-  console.log(credentials);
-
   const responseFromServer = await fetch(`${BASE_URL}login_auth`, {
     method: 'POST',
     body: JSON.stringify(credentials),
