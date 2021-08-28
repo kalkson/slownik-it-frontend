@@ -4,20 +4,23 @@ import styled from 'styled-components';
 const StyledLoader = styled.div`
   display: inline-block;
   position: relative;
-  width: 80px;
-  height: 80px;
+  height: 25px;
+  width: 25px;
+
+  transform: translate(-8px, -8px);
 
   & div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 64px;
-    height: 64px;
+    height: 25px;
+    width: 25px;
     margin: 8px;
-    border: 8px solid #fff;
+    border: 4px solid black;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff transparent transparent transparent;
+    border-color: black transparent transparent transparent;
+    transform-origin: center;
   }
   & div:nth-child(1) {
     animation-delay: -0.45s;

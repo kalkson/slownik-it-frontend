@@ -49,20 +49,19 @@ const GlobalStyle = createGlobalStyle<{ theme: unknown }>`
     }
 
     /* react-transition-group */
-
     .loader-enter {
-        transform: translateX(120%);
+        transform: translateY(120%);
     }
     .loader-enter-active {
-        transition: transform 600ms;
-        transform: translateX(0);
+        transition: transform 200ms;
+        transform: translateY(0);
     }
     .loader-exit {
-        transform: translateX(0);
+        transform: translateY(0);
     }
     .loader-exit-active {
-        transition: opacity 200ms;
-        transform: translateX(120%);
+        transition: transform 100ms;
+        transform: translateY(120%);
     }
 `;
 

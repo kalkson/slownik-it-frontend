@@ -1,12 +1,6 @@
 import LoaderPopup from 'components/Loader/LoaderPopup';
-import {
-  createContext,
-  FC,
-  useState,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { createContext, FC, useState, Dispatch, SetStateAction } from 'react';
 
 type ContextData = {
   isLoading: boolean;
@@ -25,7 +19,16 @@ const LoadingContextProvider: FC = ({ children }) => {
 
   return (
     <LoadingContext.Provider value={value}>
-      <LoaderPopup isVisible={isLoading} />
+      {children}
+      <CSSTransition
+        in={isLoading}
+        timeout={200}
+        classNames="loader"
+        appear
+        unmountOnExit
+      >
+        <LoaderPopup />
+      </CSSTransition>
     </LoadingContext.Provider>
   );
 };

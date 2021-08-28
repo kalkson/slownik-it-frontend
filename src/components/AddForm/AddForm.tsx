@@ -5,6 +5,7 @@ import { addTerm } from 'api/terms';
 import { useHandle } from 'hooks/useNotification';
 import ReCAPTCHA from 'react-google-recaptcha';
 import bounce from 'utils/bounce';
+import useLoading from 'hooks/useLoading';
 import StyledAddForm from './AddForm.styled';
 
 type FormData = {
@@ -17,6 +18,7 @@ type FormData = {
 const AddForm: FC = () => {
   const [formData, setFormData] = useState<FormData>({});
   const { handleError, handleSuccess } = useHandle();
+  const [, setLoading] = useLoading();
 
   const form$ = useRef<HTMLFormElement>(null);
   const termInput$ = useRef<HTMLInputElement>(null);
@@ -49,6 +51,7 @@ const AddForm: FC = () => {
 
     if (invalidForm) return;
 
+    setLoading(true);
     const result = await addTerm({ ...formData, token });
 
     if (result.success) {
@@ -57,10 +60,12 @@ const AddForm: FC = () => {
       setFormData({});
       if (form$.current) form$.current.reset();
       if (captcha$.current) captcha$.current.reset();
+      // setLoading(false);
       return;
     }
 
     handleError(result.message);
+    setLoading(false);
   };
 
   return (
