@@ -14,7 +14,6 @@ const AUTO_DISMISS = 4000;
 const SnackbarContextProvider: FC = ({ children }) => {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
 
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (notifications.length > 0) {
       setTimeout(
