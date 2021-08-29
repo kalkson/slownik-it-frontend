@@ -8,8 +8,6 @@ const useUser = (): [User?, Dispatch<SetStateAction<User>>?] => {
     throw new Error('useUser hook should be used in UserContextProvider');
   }
 
-  console.log(context);
-
   const { userData, setUserData } = context;
   return [userData, setUserData];
 };

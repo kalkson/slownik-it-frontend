@@ -1,3 +1,4 @@
+import Container from 'components/Container/Container';
 import useUser from 'hooks/useUser';
 import { useRouter } from 'next/dist/client/router';
 import { FC, useEffect } from 'react';
@@ -14,13 +15,9 @@ const Dashboard: FC = () => {
   useEffect(() => {
     const { route } = router;
     if (userData && !Object.keys(userData).length) router.push('/admin');
-
-    console.log(getRoute(route));
-
-    // if (!userData) router.push('/admin');
   }, [router]);
 
-  return <div>hello world!</div>;
+  return <Container>hello world!</Container>;
 };
 
 export default Dashboard;

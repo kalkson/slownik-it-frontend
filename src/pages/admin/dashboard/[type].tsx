@@ -1,29 +1,32 @@
-import LoginForm from 'components/LoginForm/LoginForm';
+import authToken, { GetServerSidePropsReturnType } from 'api/auth/token_auth';
+import useUser from 'hooks/useUser';
+import { NextPageContext } from 'next';
+import { useRouter } from 'next/dist/client/router';
 import { FC, useEffect } from 'react';
 import * as cookie from 'cookie';
-import { useRouter } from 'next/dist/client/router';
-import { NextPageContext } from 'next/dist/shared/lib/utils';
-import useUser from 'hooks/useUser';
-import authToken, { GetServerSidePropsReturnType } from 'api/auth/token_auth';
 import { User } from 'context/UserContext';
+
+const getRoute = (path: string): string => {
+  const splited = path.split('/');
+  return splited[splited.length - 1];
+};
 
 interface Props {
   user?: User;
 }
 
-const Admin: FC<Props> = ({ user }) => {
+const Panel: FC<Props> = ({ user }) => {
   const router = useRouter();
   const [userData, setUserData] = useUser();
+  const { asPath: route } = router;
 
   useEffect(() => {
-    if (user) {
+    if (user)
       if (setUserData) setUserData(user);
+      else router.push('/admin');
+  }, [router, userData, setUserData, user]);
 
-      router.push('/admin/dashboard');
-    }
-  }, [router, user, setUserData, userData]);
-
-  return <LoginForm />;
+  return <div>{getRoute(route)}</div>;
 };
 
 export const getServerSideProps = async (
@@ -38,4 +41,4 @@ export const getServerSideProps = async (
   return result;
 };
 
-export default Admin;
+export default Panel;
