@@ -2,6 +2,7 @@ import login from 'api/auth/login';
 import Button from 'components/Button/Button';
 import Container from 'components/Container/Container';
 import Input from 'components/Input/Input';
+import useLoading from 'hooks/useLoading';
 import { useHandle } from 'hooks/useNotification';
 import { useRouter } from 'next/dist/client/router';
 import React, { FC, FormEvent, useState } from 'react';
@@ -11,6 +12,7 @@ const LoginForm: FC = () => {
   const [credentials, setCredentials] = useState({});
   const router = useRouter();
   const { handleSuccess, handleError } = useHandle();
+  const [isLoading, setLoading] = useLoading();
 
   const handleChange = (e: {
     target: HTMLInputElement | HTMLTextAreaElement;
@@ -23,15 +25,18 @@ const LoginForm: FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const result = await login(credentials);
 
     if (result.success) {
+      setLoading(false);
       handleSuccess('Zalogowano');
       router.push('/admin/dashboard');
       return;
     }
 
     handleError(result.message);
+    setLoading(false);
   };
 
   return (
@@ -51,7 +56,9 @@ const LoginForm: FC = () => {
           name="password"
           onChange={(e) => handleChange(e)}
         />
-        <Button type="submit">zaloguj</Button>
+        <Button type="submit" disabled={isLoading}>
+          zaloguj
+        </Button>
       </StyledLoginForm>
     </Container>
   );

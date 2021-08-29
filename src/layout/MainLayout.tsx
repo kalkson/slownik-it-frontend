@@ -8,6 +8,7 @@ import theme from 'theme/theme';
 import Head from 'next/head';
 import 'animate.css';
 import LoadingContextProvider from 'context/LoadingContext';
+import UserContextProvider from 'context/UserContext';
 
 const MainLayout: React.FC = ({ children }) => (
   <>
@@ -21,9 +22,11 @@ const MainLayout: React.FC = ({ children }) => (
       <LoadingContextProvider>
         <SnackbarContextProvider>
           <HeaderContextProvider>
-            <GlobalStyle />
-            <Navbar />
-            {children}
+            <UserContextProvider>
+              <GlobalStyle />
+              <Navbar />
+              {children}
+            </UserContextProvider>
           </HeaderContextProvider>
         </SnackbarContextProvider>
       </LoadingContextProvider>

@@ -7,6 +7,10 @@ const StyledButton = styled.button`
   width: fit-content;
   z-index: 1;
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   & span {
     z-index: 1;
     position: relative;
@@ -36,12 +40,18 @@ const StyledButton = styled.button`
 
 interface Props {
   type: 'submit' | 'button';
+  disabled?: boolean;
 }
 
 // type ButtonType = 'submit' | 'button';
 
-const Button: FC<Props> = ({ type = 'button', children, ...props }) => (
-  <StyledButton type={type} {...props}>
+const Button: FC<Props> = ({
+  type = 'button',
+  children,
+  disabled,
+  ...props
+}) => (
+  <StyledButton type={type} disabled={disabled} {...props}>
     <span>{children}</span>
   </StyledButton>
 );

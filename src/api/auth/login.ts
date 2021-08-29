@@ -1,4 +1,5 @@
 import HandledResponse from 'api/terms/types';
+import Cookies from 'js-cookie';
 
 const BASE_URL = process.env.API_URL;
 
@@ -29,7 +30,7 @@ const login = async (credentials: Credentials): Promise<HandledResponse> => {
       const { token } = fetchedData;
 
       if (token) {
-        window.localStorage.setItem('token', token);
+        Cookies.set('token', token);
       }
 
       return response;

@@ -18,7 +18,7 @@ type FormData = {
 const AddForm: FC = () => {
   const [formData, setFormData] = useState<FormData>({});
   const { handleError, handleSuccess } = useHandle();
-  const [, setLoading] = useLoading();
+  const [isLoading, setLoading] = useLoading();
 
   const form$ = useRef<HTMLFormElement>(null);
   const termInput$ = useRef<HTMLInputElement>(null);
@@ -37,6 +37,7 @@ const AddForm: FC = () => {
     e.preventDefault();
 
     const token = captcha$.current ? captcha$.current.getValue() : null;
+    if (isLoading) return;
     let invalidForm = false;
 
     if (!formData.term) {
@@ -52,7 +53,7 @@ const AddForm: FC = () => {
     if (invalidForm) return;
 
     setLoading(true);
-    const result = await addTerm({ ...formData, token });
+    const result = !isLoading && (await addTerm({ ...formData, token }));
 
     if (result.success) {
       handleSuccess(result.message);
@@ -60,7 +61,7 @@ const AddForm: FC = () => {
       setFormData({});
       if (form$.current) form$.current.reset();
       if (captcha$.current) captcha$.current.reset();
-      // setLoading(false);
+      setLoading(false);
       return;
     }
 
@@ -98,7 +99,9 @@ const AddForm: FC = () => {
         sitekey="6LcNRSscAAAAAKNp-3ZX8nVps8Eb_-xNL3xf2Tsd"
         hl="pl"
       />
-      <Button type="submit">Prześlij</Button>
+      <Button type="submit" disabled={isLoading}>
+        Prześlij
+      </Button>
     </StyledAddForm>
   );
 };

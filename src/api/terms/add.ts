@@ -40,14 +40,6 @@ const addTerm = async (termToAdd: Term): Promise<HandledResponse> => {
   }
 
   return dummyResponse;
-
-  // if (fetchedData?.token) {
-  //   window.localStorage.setItem('token', fetchedData.token);
-  //   handleSuccess('Zalogowano');
-  //   router.push('/admin/dashboard');
-  // } else {
-  //   handleError(fetchedData.message);
-  // }
 };
 
 export default addTerm;
