@@ -10,6 +10,7 @@ export type Credentials = {
 
 type Fetched = {
   token?: string;
+  email?: string;
 };
 
 const login = async (credentials: Credentials): Promise<HandledResponse> => {
@@ -21,7 +22,6 @@ const login = async (credentials: Credentials): Promise<HandledResponse> => {
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
-      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
   })
     .then((response) => response)
@@ -34,13 +34,13 @@ const login = async (credentials: Credentials): Promise<HandledResponse> => {
       }
 
       return response;
-    })
-    .catch((response) => response);
+    });
 
   if (responseFromServer.ok)
     return {
       success: true,
       message: 'Zalogowano',
+      email: credentials.email,
     };
 
   const dummyResponse: HandledResponse = { success: false, message: '' };

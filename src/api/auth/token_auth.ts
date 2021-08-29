@@ -1,20 +1,14 @@
 import { User } from 'context/UserContext';
 
-export interface GetServerSidePropsReturnType {
-  props: {
-    user?: User;
-  };
-}
-
 const authToken = async (
   parsedCookies:
     | {
         token?: string;
       }
     | undefined
-): Promise<GetServerSidePropsReturnType | null> => {
+): Promise<User | null> => {
   if (parsedCookies?.token) {
-    const result: User = await fetch(`${process.env.API_URL}token_auth`, {
+    const result: Response = await fetch(`${process.env.API_URL}token_auth`, {
       method: 'POST',
       credentials: 'same-origin',
       mode: 'cors',
@@ -23,22 +17,21 @@ const authToken = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ token: parsedCookies.token }),
-    })
-      .then((data) => data.json())
-      .then((data) => data.user)
-      .catch((response) => response);
+    }).then((data) => data);
 
-    return {
-      props: {
-        user: {
-          email: result.email,
-          user_id: result.user_id,
-        },
-      },
-    };
+    console.log(result);
+
+    if (result.status >= 200 && result.status < 300) {
+      const { user } = await result.json();
+
+      return {
+        email: user.email,
+        user_id: user.user_id,
+      };
+    }
   }
 
-  return { props: {} };
+  return null;
 };
 
 export default authToken;

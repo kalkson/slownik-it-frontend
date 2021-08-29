@@ -1,23 +1,22 @@
 import Container from 'components/Container/Container';
+import PanelNavigation from 'components/PanelNavigation/PanelNavigation';
 import useUser from 'hooks/useUser';
 import { useRouter } from 'next/dist/client/router';
-import { FC, useEffect } from 'react';
-
-const getRoute = (path: string): string => {
-  const splited = path.split('/');
-  return splited[splited.length - 1];
-};
+import { FC, useEffect, useState } from 'react';
 
 const Dashboard: FC = () => {
   const router = useRouter();
   const [userData] = useUser();
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    const { route } = router;
-    if (userData && !Object.keys(userData).length) router.push('/admin');
-  }, [router]);
+    console.log(userData);
 
-  return <Container>hello world!</Container>;
+    if (userData && !Object.keys(userData).length) router.push('/admin');
+    else setLoading(false);
+  }, [router, userData]);
+
+  return <Container>{!isLoading && <PanelNavigation />}</Container>;
 };
 
 export default Dashboard;

@@ -4,6 +4,7 @@ import Container from 'components/Container/Container';
 import Input from 'components/Input/Input';
 import useLoading from 'hooks/useLoading';
 import { useHandle } from 'hooks/useNotification';
+import useUser from 'hooks/useUser';
 import { useRouter } from 'next/dist/client/router';
 import React, { FC, FormEvent, useState } from 'react';
 import StyledLoginForm from './LoginForm.styled';
@@ -13,6 +14,7 @@ const LoginForm: FC = () => {
   const router = useRouter();
   const { handleSuccess, handleError } = useHandle();
   const [isLoading, setLoading] = useLoading();
+  const [userData, setUserData] = useUser();
 
   const handleChange = (e: {
     target: HTMLInputElement | HTMLTextAreaElement;
@@ -29,6 +31,11 @@ const LoginForm: FC = () => {
     const result = await login(credentials);
 
     if (result.success) {
+      console.log(result.email);
+
+      if (result.email) setUserData({ email: result.email });
+      console.log(userData);
+
       setLoading(false);
       handleSuccess('Zalogowano');
       router.push('/admin/dashboard');
