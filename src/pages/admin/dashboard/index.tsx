@@ -10,11 +10,9 @@ const Dashboard: FC = () => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(userData);
-
     if (userData && !Object.keys(userData).length) router.push('/admin');
     else setLoading(false);
-  }, [router, userData]);
+  }, [userData]);
 
   return <Container>{!isLoading && <PanelNavigation />}</Container>;
 };

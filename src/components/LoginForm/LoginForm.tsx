@@ -33,7 +33,7 @@ const LoginForm: FC = () => {
     if (result.success) {
       console.log(result.email);
 
-      if (result.email) setUserData({ email: result.email });
+      if (result.email && setUserData) setUserData({ email: result.email });
       console.log(userData);
 
       setLoading(false);
