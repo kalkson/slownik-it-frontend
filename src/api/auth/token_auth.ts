@@ -8,16 +8,19 @@ const authToken = async (
     | undefined
 ): Promise<User | null> => {
   if (parsedCookies?.token) {
-    const result: Response = await fetch(`${process.env.API_URL}token_auth`, {
-      method: 'POST',
-      credentials: 'same-origin',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token: parsedCookies.token }),
-    }).then((data) => data);
+    const result: Response = await fetch(
+      `${process.env.API_URL}token_auth_login`,
+      {
+        method: 'POST',
+        credentials: 'same-origin',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: parsedCookies.token }),
+      }
+    ).then((data) => data);
 
     console.log(result);
 
