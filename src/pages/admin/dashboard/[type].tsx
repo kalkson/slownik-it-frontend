@@ -4,6 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import { FC, useEffect, useState } from 'react';
 import Container from 'components/Container/Container';
 import PanelNavigation from 'components/PanelNavigation/PanelNavigation';
+import withUser from 'hoc/withUser';
 
 const trimRoute = (route: string): string => {
   const splited = route.split('/');
@@ -29,4 +30,4 @@ const Panel: FC = () => {
   );
 };
 
-export default Panel;
+export default withUser(Panel);

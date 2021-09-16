@@ -1,5 +1,6 @@
 import Container from 'components/Container/Container';
 import PanelNavigation from 'components/PanelNavigation/PanelNavigation';
+import withUser from 'hoc/withUser';
 import useUser from 'hooks/useUser';
 import { useRouter } from 'next/dist/client/router';
 import { FC, useEffect, useState } from 'react';
@@ -17,4 +18,4 @@ const Dashboard: FC = () => {
   return <Container>{!isLoading && <PanelNavigation />}</Container>;
 };
 
-export default Dashboard;
+export default withUser(Dashboard);

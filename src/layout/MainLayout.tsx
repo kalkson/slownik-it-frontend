@@ -9,7 +9,6 @@ import Head from 'next/head';
 import 'animate.css';
 import LoadingContextProvider from 'context/LoadingContext';
 import UserContextProvider from 'context/UserContext';
-import UserLayout from './UserLayout';
 
 const MainLayout: React.FC = ({ children }) => (
   <>
@@ -24,11 +23,9 @@ const MainLayout: React.FC = ({ children }) => (
         <SnackbarContextProvider>
           <HeaderContextProvider>
             <UserContextProvider>
-              <UserLayout>
-                <GlobalStyle />
-                <Navbar />
-                {children}
-              </UserLayout>
+              <GlobalStyle />
+              <Navbar />
+              {children}
             </UserContextProvider>
           </HeaderContextProvider>
         </SnackbarContextProvider>

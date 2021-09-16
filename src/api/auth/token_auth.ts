@@ -1,13 +1,8 @@
 import { User } from 'context/UserContext';
+import Cookies from 'js-cookie';
 
-const authToken = async (
-  parsedCookies:
-    | {
-        token?: string;
-      }
-    | undefined
-): Promise<User | null> => {
-  if (parsedCookies?.token) {
+const authToken = async (cookies = Cookies.get()): Promise<User | null> => {
+  if (cookies?.token) {
     const result: Response = await fetch(
       `${process.env.API_URL}token_auth_login`,
       {
@@ -18,7 +13,7 @@ const authToken = async (
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ token: parsedCookies.token }),
+        body: JSON.stringify({ token: cookies.token }),
       }
     ).then((data) => data);
 
