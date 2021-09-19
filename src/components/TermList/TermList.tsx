@@ -19,13 +19,13 @@ const TermsList: FC<TermsListProps> = ({ terms = [] }) => {
 
   return (
     <StyledTermList>
-      <tr>
-        <th>Termin</th>
-        <th>Polski odpowiednik</th>
-        <th>Znaczenie</th>
-        <th>Akcje</th>
-      </tr>
       <tbody>
+        <tr>
+          <th>Termin</th>
+          <th>Polski odpowiednik</th>
+          <th>Znaczenie</th>
+          <th>Akcje</th>
+        </tr>
         {terms.length &&
           // eslint-disable-next-line no-underscore-dangle
           terms.map((term) => <TermRow key={term._id} termRow={term} />)}

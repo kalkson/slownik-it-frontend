@@ -2,13 +2,14 @@ import React, { forwardRef } from 'react';
 import StyledInput from './Input.styled';
 
 interface Props {
-  type: 'text' | 'textarea' | 'email' | 'password';
+  type?: 'text' | 'textarea' | 'email' | 'password';
   label: string;
   labelHidden?: boolean;
   placeholder?: string | null;
   id: string;
   name?: string;
   required?: boolean;
+  initialValue?: string;
   onChange?: (e: {
     target: HTMLInputElement | HTMLTextAreaElement;
   }) => void | null;
@@ -24,6 +25,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       id,
       onChange,
       name,
+      initialValue,
       ...props
     },
     ref
@@ -39,6 +41,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
             onChange={onChange}
             name={name}
             {...props}
+            defaultValue={initialValue}
           />
         ) : (
           <textarea
@@ -46,6 +49,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
             id={id}
             onChange={onChange}
             name={name}
+            defaultValue={initialValue}
           />
         )}
       </label>
