@@ -3,13 +3,17 @@ import HandledResponse from './types';
 
 const BASE_URL = process.env.API_URL;
 
-const fetchPendingTerms = async (
-  cookies = Cookies.get()
+const fetchTerms = async (
+  type: string | string[] | undefined,
+  token: string
 ): Promise<HandledResponse> => {
-  const responseFromServer = await fetch(`${BASE_URL}terms/pending/fetch`, {
+  // const tokens = tokens.get();
+  console.log(token);
+
+  const responseFromServer = await fetch(`${BASE_URL}terms/${type}/fetch`, {
     method: 'POST',
     mode: 'cors',
-    body: JSON.stringify({ token: cookies.token }),
+    body: JSON.stringify({ token }),
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
@@ -43,4 +47,4 @@ const fetchPendingTerms = async (
   return dummyResponse;
 };
 
-export default fetchPendingTerms;
+export default fetchTerms;

@@ -3,29 +3,33 @@ import { FC, useCallback, useEffect } from 'react';
 import Container from 'components/Container/Container';
 import PanelNavigation from 'components/PanelNavigation/PanelNavigation';
 import withUser from 'hoc/withUser';
-import fetchPendingTerms from 'api/terms/fetchPending';
-import { NextPageContext } from 'next';
+import fetchTerms from 'api/terms/fetchTerms';
+import { GetServerSideProps } from 'next';
+import { Term } from 'api/terms/types';
+import { useHandle } from 'hooks/useNotification';
 
 const trimRoute = (route: string): string => {
   const splited = route.split('/');
   return splited[splited.length - 1];
 };
 
-const Panel: FC = () => {
+interface PanelProps {
+  data?: Term[];
+  error?: 1;
+}
+
+const Panel: FC<PanelProps> = ({ data, error }) => {
   const router = useRouter();
-
-  const { asPath: route } = router;
-
-  const getRoute = useCallback(() => trimRoute(route), [route]);
+  const { handleError } = useHandle();
 
   useEffect(() => {
-    async function fetchData() {
-      const pendingTerms = await fetchPendingTerms();
-      console.log(pendingTerms);
+    if (error) {
+      handleError('Coś poszło nie tak');
     }
+  }, [handleError, error]);
 
-    fetchData();
-  }, []);
+  const { asPath: route } = router;
+  const getRoute = useCallback(() => trimRoute(route), [route]);
 
   return (
     <Container>
@@ -34,12 +38,27 @@ const Panel: FC = () => {
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
-  console.log(context);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const {
+    query: { type },
+  } = context;
+
+  const tokenFromCookies = context.req.cookies.token;
+  const fetchedTermResponse = await fetchTerms(type, tokenFromCookies);
+
+  if (fetchedTermResponse.success)
+    return {
+      props: {
+        data: fetchedTermResponse.data,
+        error: 0,
+      },
+    };
 
   return {
-    props: {}, // will be passed to the page component as props
+    props: {
+      error: 1,
+    },
   };
-}
+};
 
 export default withUser(Panel);

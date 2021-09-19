@@ -4,13 +4,19 @@ import useUser from 'hooks/useUser';
 import useLoading from 'hooks/useLoading';
 import { useRouter } from 'next/dist/client/router';
 import { useHandle } from 'hooks/useNotification';
+import { Term } from 'api/terms/types';
 
-const withUser = (
-  WrappedComponent: FC
-): (() => JSX.Element | (() => Promise<boolean>)) => {
-  const NestedComponent = () => {
+interface WithUserProps {
+  data?: Term[];
+  error?: 0 | 1;
+}
+
+const withUser = (WrappedComponent: FC): FC<WithUserProps> => {
+  const NestedComponent: FC<WithUserProps> = (props) => {
     const [userData, setUserData] = useUser();
     const [isFetched, setFetched] = useState(false);
+
+    console.log(props);
 
     const router = useRouter();
 
@@ -60,7 +66,9 @@ const withUser = (
 
     const LoadingState = () => <></>;
 
-    return <>{isFetched ? <WrappedComponent /> : <LoadingState />}</>;
+    return (
+      <>{isFetched ? <WrappedComponent {...props} /> : <LoadingState />}</>
+    );
   };
 
   return NestedComponent;
