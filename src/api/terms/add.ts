@@ -1,13 +1,6 @@
-import HandledResponse from './types';
+import HandledResponse, { Term } from './types';
 
 const BASE_URL = process.env.API_URL;
-
-interface Term {
-  term?: string;
-  meaning?: string;
-  description?: string;
-  token?: string | null;
-}
 
 const addTerm = async (termToAdd: Term): Promise<HandledResponse> => {
   const responseFromServer = await fetch(`${BASE_URL}terms/add`, {

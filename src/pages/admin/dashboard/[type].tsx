@@ -1,10 +1,10 @@
-// import authToken, { GetServerSidePropsReturnType } from 'api/auth/token_auth';
-import useUser from 'hooks/useUser';
 import { useRouter } from 'next/dist/client/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import Container from 'components/Container/Container';
 import PanelNavigation from 'components/PanelNavigation/PanelNavigation';
 import withUser from 'hoc/withUser';
+import fetchPendingTerms from 'api/terms/fetchPending';
+import { NextPageContext } from 'next';
 
 const trimRoute = (route: string): string => {
   const splited = route.split('/');
@@ -13,21 +13,33 @@ const trimRoute = (route: string): string => {
 
 const Panel: FC = () => {
   const router = useRouter();
-  const [userData] = useUser();
-  const [isLoading, setLoading] = useState(true);
 
   const { asPath: route } = router;
 
+  const getRoute = useCallback(() => trimRoute(route), [route]);
+
   useEffect(() => {
-    if (userData && !Object.keys(userData).length) router.push('/admin');
-    else setLoading(false);
+    async function fetchData() {
+      const pendingTerms = await fetchPendingTerms();
+      console.log(pendingTerms);
+    }
+
+    fetchData();
   }, []);
 
   return (
     <Container>
-      {!isLoading && <PanelNavigation route={trimRoute(route)} />}
+      <PanelNavigation route={getRoute()} />
     </Container>
   );
 };
+
+export async function getServerSideProps(context: NextPageContext) {
+  console.log(context);
+
+  return {
+    props: {}, // will be passed to the page component as props
+  };
+}
 
 export default withUser(Panel);

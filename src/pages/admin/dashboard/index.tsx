@@ -15,7 +15,11 @@ const Dashboard: FC = () => {
     else setLoading(false);
   }, [userData]);
 
-  return <Container>{!isLoading && <PanelNavigation />}</Container>;
+  return (
+    <Container>
+      <PanelNavigation />
+    </Container>
+  );
 };
 
 export default withUser(Dashboard);

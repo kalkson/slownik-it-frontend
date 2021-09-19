@@ -18,7 +18,7 @@ const authToken = async (cookies = Cookies.get()): Promise<User | null> => {
         }
       ).then((data) => data);
 
-      if (result.status >= 200 && result.status < 300) {
+      if (result.ok) {
         const { user } = await result.json();
 
         return {

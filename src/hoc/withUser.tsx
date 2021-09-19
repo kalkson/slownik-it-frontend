@@ -5,9 +5,10 @@ import useLoading from 'hooks/useLoading';
 import { useRouter } from 'next/dist/client/router';
 import { useHandle } from 'hooks/useNotification';
 
-const withUser =
-  (WrappedComponent: FC): (() => JSX.Element | (() => Promise<boolean>)) =>
-  () => {
+const withUser = (
+  WrappedComponent: FC
+): (() => JSX.Element | (() => Promise<boolean>)) => {
+  const NestedComponent = () => {
     const [userData, setUserData] = useUser();
     const [isFetched, setFetched] = useState(false);
 
@@ -37,9 +38,10 @@ const withUser =
 
           setUserData({ email, user_id });
           setFetchedAfterUserFetched();
+          setFetched(true);
           setLoading(false);
 
-          router.push('/admin/dashboard');
+          if (router.route === '/admin') router.push('/admin/dashboard');
         } else if (router.route !== '/admin') router.push('/admin');
         else {
           setFetched(true);
@@ -56,11 +58,12 @@ const withUser =
       }
     }, []);
 
-    const NestedComponent = <WrappedComponent />;
-    const LoadingState = <></>;
+    const LoadingState = () => <></>;
 
-    if (isFetched) return NestedComponent;
-    return LoadingState;
+    return <>{isFetched ? <WrappedComponent /> : <LoadingState />}</>;
   };
+
+  return NestedComponent;
+};
 
 export default withUser;
