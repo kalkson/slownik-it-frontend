@@ -11,6 +11,10 @@ export interface Term {
   meaning?: string;
   description?: string;
   token?: string | null;
+  _id?: string;
+}
+export interface TermRowType extends Term {
+  _id: string;
 }
 
 export default HandledResponse;

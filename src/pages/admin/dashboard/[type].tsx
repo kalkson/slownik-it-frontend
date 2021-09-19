@@ -5,16 +5,13 @@ import PanelNavigation from 'components/PanelNavigation/PanelNavigation';
 import withUser from 'hoc/withUser';
 import fetchTerms from 'api/terms/fetchTerms';
 import { GetServerSideProps } from 'next';
-import { Term } from 'api/terms/types';
+import { TermRowType } from 'api/terms/types';
 import { useHandle } from 'hooks/useNotification';
-
-const trimRoute = (route: string): string => {
-  const splited = route.split('/');
-  return splited[splited.length - 1];
-};
+import TermsList from 'components/TermList/TermList';
+import trimRoute from 'helpers/trimRoute';
 
 interface PanelProps {
-  data?: Term[];
+  data?: TermRowType[];
   error?: 1;
 }
 
@@ -23,10 +20,8 @@ const Panel: FC<PanelProps> = ({ data, error }) => {
   const { handleError } = useHandle();
 
   useEffect(() => {
-    if (error) {
-      handleError('Coś poszło nie tak');
-    }
-  }, [handleError, error]);
+    if (error) handleError('Coś poszło nie tak');
+  }, [error]);
 
   const { asPath: route } = router;
   const getRoute = useCallback(() => trimRoute(route), [route]);
@@ -34,6 +29,7 @@ const Panel: FC<PanelProps> = ({ data, error }) => {
   return (
     <Container>
       <PanelNavigation route={getRoute()} />
+      <TermsList terms={data} />
     </Container>
   );
 };
