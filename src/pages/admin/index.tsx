@@ -1,17 +1,7 @@
 import LoginForm from 'components/LoginForm/LoginForm';
-import { FC, useEffect } from 'react';
-import { useRouter } from 'next/dist/client/router';
-import useUser from 'hooks/useUser';
+import { FC } from 'react';
+import withUser from 'hoc/withUser';
 
-const Admin: FC = () => {
-  const router = useRouter();
-  const [userData] = useUser();
+const Admin: FC = () => <LoginForm />;
 
-  useEffect(() => {
-    if (userData && userData.email) router.push('/admin/dashboard');
-  }, [userData]);
-
-  return <LoginForm />;
-};
-
-export default Admin;
+export default withUser(Admin);

@@ -3,6 +3,7 @@ import { createContext, Dispatch, FC, SetStateAction, useState } from 'react';
 export type User = {
   email?: string;
   user_id?: string;
+  error?: 0 | 1;
 };
 
 export interface SettingsContextData {
