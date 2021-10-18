@@ -1,3 +1,11 @@
+// eslint-disable-next-line import/prefer-default-export
+export enum TermType {
+  pending = 'pending',
+  accepted = 'accepted',
+  rejected = 'rejected',
+  updated = 'updated',
+}
+
 interface HandledResponse {
   success: boolean;
   message: string;
@@ -13,8 +21,17 @@ export interface Term {
   token?: string | null;
   _id?: string;
 }
+
 export interface TermRowType extends Term {
   _id: string;
 }
+
+export enum ActionButtonVariant {
+  green = 'green',
+  blue = 'blue',
+  red = 'red',
+}
+
+export enum ActionButtonsType {}
 
 export default HandledResponse;

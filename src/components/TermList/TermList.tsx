@@ -1,21 +1,52 @@
-import { TermRowType } from 'api/terms/types';
+import HandledResponse, { TermRowType, TermType } from 'types';
 import TermRow from 'components/TermRow/TermRow';
-import trimRoute from 'helpers/trimRoute';
-import { useRouter } from 'next/dist/client/router';
-// import Link from 'next/link';
-import React, { FC, useCallback } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import useLoading from 'hooks/useLoading';
+import { useHandle } from 'hooks/useNotification';
 import StyledTermList from './TermList.styled';
 
 interface TermsListProps {
   terms?: TermRowType[];
+  route: string;
 }
 
-const TermsList: FC<TermsListProps> = ({ terms = [] }) => {
-  const router = useRouter();
+const TermsList: FC<TermsListProps> = ({ terms = [], route }) => {
+  const termType = useMemo(() => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [key, value] of Object.entries(TermType)) {
+      if (key === route) return value;
+    }
 
-  const { asPath: route } = router;
-  const getRoute = useCallback(() => trimRoute(route), [route]);
-  console.log(getRoute());
+    return undefined;
+  }, [route]);
+
+  const [movedTerms, setMovedTerms] = useState<string[]>([]);
+  const [, setLoading] = useLoading();
+  const { handleError, handleSuccess } = useHandle();
+
+  useEffect(() => {
+    setMovedTerms([]);
+  }, [route]);
+
+  const handleRequest = async (
+    callback: () => Promise<HandledResponse>,
+    id: string
+  ) => {
+    setLoading(true);
+    const result = await callback();
+
+    setLoading(false);
+
+    const { success, message } = result;
+
+    if (success) {
+      setMovedTerms([...movedTerms, id]);
+      handleSuccess(message);
+      return;
+    }
+
+    handleError(message);
+  };
 
   return (
     <StyledTermList>
@@ -26,9 +57,24 @@ const TermsList: FC<TermsListProps> = ({ terms = [] }) => {
           <th>Znaczenie</th>
           <th>Akcje</th>
         </tr>
-        {terms.length &&
-          // eslint-disable-next-line no-underscore-dangle
-          terms.map((term) => <TermRow key={term._id} termRow={term} />)}
+        {terms.length
+          ? terms.map((term) => {
+              const { _id: id } = term;
+
+              if (!movedTerms.includes(id))
+                return (
+                  <TermRow
+                    key={id}
+                    id={id}
+                    termRow={term}
+                    termType={termType}
+                    handleRequest={handleRequest}
+                  />
+                );
+
+              return null;
+            })
+          : null}
       </tbody>
     </StyledTermList>
   );

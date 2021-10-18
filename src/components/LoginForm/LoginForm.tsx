@@ -31,10 +31,7 @@ const LoginForm: FC = () => {
     const result = await login(credentials);
 
     if (result.success) {
-      console.log(result.email);
-
       if (result.email && setUserData) setUserData({ email: result.email });
-      console.log(userData);
 
       setLoading(false);
       handleSuccess('Zalogowano');

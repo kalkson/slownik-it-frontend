@@ -1,14 +1,13 @@
 import { useRouter } from 'next/dist/client/router';
-import { FC, useCallback, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import Container from 'components/Container/Container';
 import PanelNavigation from 'components/PanelNavigation/PanelNavigation';
 import withUser from 'hoc/withUser';
 import fetchTerms from 'api/terms/fetchTerms';
 import { GetServerSideProps } from 'next';
-import { TermRowType } from 'api/terms/types';
+import { TermRowType } from 'types';
 import { useHandle } from 'hooks/useNotification';
 import TermsList from 'components/TermList/TermList';
-import trimRoute from 'helpers/trimRoute';
 
 interface PanelProps {
   data?: TermRowType[];
@@ -16,20 +15,19 @@ interface PanelProps {
 }
 
 const Panel: FC<PanelProps> = ({ data, error }) => {
-  const router = useRouter();
   const { handleError } = useHandle();
+
+  const { asPath: pathname } = useRouter();
+  const [, , , route] = pathname.split('/');
 
   useEffect(() => {
     if (error) handleError('Coś poszło nie tak');
-  }, [error]);
-
-  const { asPath: route } = router;
-  const getRoute = useCallback(() => trimRoute(route), [route]);
+  }, [error, handleError]);
 
   return (
     <Container>
-      <PanelNavigation route={getRoute()} />
-      <TermsList terms={data} />
+      <PanelNavigation route={route} />
+      <TermsList terms={data} route={route} />
     </Container>
   );
 };

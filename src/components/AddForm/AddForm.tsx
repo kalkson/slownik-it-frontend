@@ -53,7 +53,7 @@ const AddForm: FC = () => {
     if (invalidForm) return;
 
     setLoading(true);
-    const result = !isLoading && (await addTerm({ ...formData, token }));
+    const result = !isLoading && (await addTerm({ ...formData, token }, 'add'));
 
     if (result.success) {
       handleSuccess(result.message);

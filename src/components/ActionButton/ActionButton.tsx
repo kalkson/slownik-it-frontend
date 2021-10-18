@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import StyledActionButton, { ActionButtonVariant } from './ActionButton.styled';
+import { ActionButtonVariant } from 'types';
+import StyledActionButton from './ActionButton.styled';
 
 interface ActionButtonProps {
   variant: ActionButtonVariant;
@@ -7,7 +8,7 @@ interface ActionButtonProps {
 }
 
 const ActionButton: FC<ActionButtonProps> = ({
-  variant = ActionButtonVariant.click,
+  variant = ActionButtonVariant.blue,
   onClick,
   children,
 }) => (

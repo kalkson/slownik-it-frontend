@@ -1,4 +1,4 @@
-import HandledResponse from 'api/terms/types';
+import HandledResponse from 'types';
 import Cookies from 'js-cookie';
 
 const BASE_URL = process.env.API_URL;

@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import HandledResponse from './types';
+import HandledResponse from '../../types';
 
 const BASE_URL = process.env.API_URL;
 
@@ -7,9 +7,6 @@ const fetchTerms = async (
   type: string | string[] | undefined,
   token: string
 ): Promise<HandledResponse> => {
-  // const tokens = tokens.get();
-  console.log(token);
-
   const responseFromServer = await fetch(`${BASE_URL}terms/${type}/fetch`, {
     method: 'POST',
     mode: 'cors',

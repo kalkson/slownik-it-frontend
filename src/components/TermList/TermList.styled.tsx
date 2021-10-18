@@ -10,7 +10,6 @@ const StyledTermList = styled.table`
     padding: 10px;
     text-align: left;
     vertical-align: top;
-    border: solid 1px rgba(0, 0, 0, 0.1);
   }
 
   & tr {
@@ -21,6 +20,10 @@ const StyledTermList = styled.table`
     }
     & th:nth-of-type(3) {
       width: 40%;
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: solid 1px rgba(0, 0, 0, 0.1);
     }
   }
 `;

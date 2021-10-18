@@ -1,12 +1,15 @@
-import HandledResponse, { Term } from './types';
+import HandledResponse, { Term, TermType } from '../../types';
 
 const BASE_URL = process.env.API_URL;
 
-const addTerm = async (termToAdd: Term): Promise<HandledResponse> => {
-  const responseFromServer = await fetch(`${BASE_URL}terms/add`, {
+const addTerm = async (
+  termToAdd: Term,
+  type: TermType
+): Promise<HandledResponse> => {
+  const responseFromServer = await fetch(`${BASE_URL}terms/${type}`, {
     method: 'POST',
     mode: 'cors',
-    body: JSON.stringify(termToAdd),
+    body: JSON.stringify({ ...termToAdd, type }),
     cache: 'no-cache',
     credentials: 'same-origin',
     headers: {
@@ -19,7 +22,7 @@ const addTerm = async (termToAdd: Term): Promise<HandledResponse> => {
   if (responseFromServer.ok)
     return {
       success: true,
-      message: 'Dodano do weryfikacji',
+      message: 'Przesłano!',
     };
 
   const dummyResponse: HandledResponse = { success: false, message: '' };

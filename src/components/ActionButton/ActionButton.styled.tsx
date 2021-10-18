@@ -1,10 +1,5 @@
 import styled, { css } from 'styled-components';
-
-export enum ActionButtonVariant {
-  submit = 'submit',
-  click = 'click',
-  reject = 'reject',
-}
+import { ActionButtonVariant } from 'types';
 
 const StyledActionButton = styled.button<{ variant: ActionButtonVariant }>`
   border-radius: 6px;
@@ -18,13 +13,13 @@ const StyledActionButton = styled.button<{ variant: ActionButtonVariant }>`
   }
 
   ${({ variant }) => {
-    if (variant === ActionButtonVariant.click) {
+    if (variant === ActionButtonVariant.blue) {
       return css`
         background-color: #2196f3;
       `;
     }
 
-    if (variant === ActionButtonVariant.reject) {
+    if (variant === ActionButtonVariant.red) {
       return css`
         background-color: #f44336;
       `;
